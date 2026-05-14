@@ -119,6 +119,7 @@ Users need to attach existing documents or upload new documents from within task
 - **FR-004**: System MUST store uploaded files securely outside the web-accessible directory (e.g., `AppData/uploads`) using GUID-based filenames to prevent path traversal attacks.
 - **FR-005**: System MUST validate file size before upload and reject files exceeding 25 MB with clear error message.
 - **FR-006**: System MUST validate file type against whitelist of supported MIME types and reject unsupported files with clear error message.
+- **FR-006a** (POST-MVP): System SHOULD implement malware scanning via abstracted interface (`IFileStorageService` includes hooks); deferred to post-MVP security enhancement.
 - **FR-007**: System MUST implement role-based access control: Employees can upload documents to their projects; Team Leads can manage team member documents; Project Managers can manage all project documents; Administrators have full access.
 - **FR-008**: System MUST prevent IDOR (Insecure Direct Object Reference) vulnerabilities by authorizing file download requests at service layer, verifying user has project membership or explicit sharing permission.
 - **FR-009**: System MUST provide "My Documents" view showing all documents uploaded by current user with sortable and filterable list (by title, upload date, category, file size).
@@ -186,7 +187,7 @@ Success Criteria must be measurable, technology-agnostic, and verifiable without
 - **Storage**: Application has read/write access to local filesystem; sufficient disk space is available for training use (~1 GB for typical usage).
 - **Offline**: Application runs completely offline without cloud services, consistent with training-first design.
 - **File Types**: Only specified file types (PDF, Office, text, images) will be supported; no video, audio, or binary formats.
-- **Virus Scanning**: Virus scanning is a business requirement but implementation approach (third-party service, pattern matching, or disabled for training) is deferred to planning phase.
+- **Virus Scanning**: Malware/virus scanning is NOT included in MVP; file validation limited to extension/MIME type checking. Service abstraction (`IFileStorageService`) enables adding scanning in post-MVP security enhancements.
 - **Retention**: Deleted documents are permanently removed immediately (no soft delete/recovery); backup strategy is determined at infrastructure level, not application level.
 - **Concurrency**: Multiple users can upload simultaneously; database handles concurrent writes with standard locking/transactions.
 - **Authentication**: All document operations require authenticated user; mock authentication system provides required claims (NameIdentifier, Name, Email, Role, Department).
@@ -194,6 +195,12 @@ Success Criteria must be measurable, technology-agnostic, and verifiable without
 - **Scale**: MVP scales to 500 documents per user; larger deployments are out of scope for training project.
 - **Tags**: Tags are user-defined strings, not a pre-defined list; no tag autocomplete for MVP.
 - **Notifications**: In-app notifications only (no email); notifications stored in memory (not persisted to database for training simplicity).
+
+## Clarifications
+
+### Session 2026-05-14
+
+- Q1: Virus scanning for MVP? → A: Option B - Skip for MVP, defer to post-MVP. File validation limited to extension/MIME type checks. Interface abstraction enables future scanning.
 
 ## Implementation Context
 
