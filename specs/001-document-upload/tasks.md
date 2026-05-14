@@ -143,7 +143,7 @@
 
 ### MVP First
 
-1. Complete Phase 1 and Phase 2.
+1. Complete Phase 1 and Phase 2 and Phase 3.
 2. Implement User Story 1 as the MVP upload experience.
 3. Validate User Story 1 independently before adding search or security enhancements.
 
