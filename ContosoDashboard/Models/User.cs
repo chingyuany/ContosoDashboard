@@ -45,6 +45,7 @@ public class User
     public virtual ICollection<TaskItem> AssignedTasks { get; set; } = new List<TaskItem>();
     public virtual ICollection<TaskItem> CreatedTasks { get; set; } = new List<TaskItem>();
     public virtual ICollection<Project> ManagedProjects { get; set; } = new List<Project>();
+    public virtual ICollection<Document> UploadedDocuments { get; set; } = new List<Document>();
     public virtual ICollection<ProjectMember> ProjectMemberships { get; set; } = new List<ProjectMember>();
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
     public virtual ICollection<TaskComment> Comments { get; set; } = new List<TaskComment>();

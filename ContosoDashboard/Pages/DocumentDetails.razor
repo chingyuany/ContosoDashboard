@@ -1,0 +1,90 @@
+@page "/documents/{documentId:int}"
+@using global::ContosoDashboard.Models
+@using global::ContosoDashboard.Services
+@attribute [Authorize]
+
+@inject IDocumentService DocumentService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<PageTitle>Document Details - ContosoDashboard</PageTitle>
+
+<div class="container-fluid">
+    @if (isLoading)
+    {
+        <p><em>Loading document details...</em></p>
+    }
+    else if (document == null)
+    {
+        <div class="alert alert-warning">Document not found or you do not have access.</div>
+    }
+    else
+    {
+        <div class="row mb-4">
+            <div class="col">
+                <h1>@document.Title</h1>
+                <p class="text-muted">@document.Category</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Document Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">Uploaded By</dt>
+                            <dd class="col-sm-9">@document.UploadedByUser.DisplayName</dd>
+
+                            <dt class="col-sm-3">Upload Date</dt>
+                            <dd class="col-sm-9">@document.UploadDate.ToString("MMM dd, yyyy HH:mm")</dd>
+
+                            <dt class="col-sm-3">File Type</dt>
+                            <dd class="col-sm-9">@document.FileType</dd>
+
+                            <dt class="col-sm-3">File Size</dt>
+                            <dd class="col-sm-9">@document.FileSize / 1024M:F2 MB</dd>
+
+                            <dt class="col-sm-3">Project</dt>
+                            <dd class="col-sm-9">@(document.AssociatedProject?.Name ?? "Personal")</dd>
+                        </dl>
+                        <div class="mb-3">
+                            <strong>Description</strong>
+                            <p>@(string.IsNullOrWhiteSpace(document.Description) ? "No description provided." : document.Description)</p>
+                        </div>
+                        <button class="btn btn-primary me-2" @onclick="DownloadDocument">Download</button>
+                        <button class="btn btn-secondary" @onclick="NavigateBack">Back to Documents</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int documentId { get; set; }
+
+    private Document? document;
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        document = await DocumentService.GetDocumentByIdAsync(documentId, authState.User);
+        isLoading = false;
+    }
+
+    private void DownloadDocument()
+    {
+        NavigationManager.NavigateTo($"/documents/download/{documentId}");
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/documents");
+    }
+}

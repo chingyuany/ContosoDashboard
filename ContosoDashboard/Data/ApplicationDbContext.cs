@@ -17,6 +17,11 @@ public class ApplicationDbContext : DbContext
     public DbSet<Notification> Notifications { get; set; } = null!;
     public DbSet<ProjectMember> ProjectMembers { get; set; } = null!;
     public DbSet<Announcement> Announcements { get; set; } = null!;
+    public DbSet<Document> Documents { get; set; } = null!;
+    public DbSet<DocumentTag> DocumentTags { get; set; } = null!;
+    public DbSet<DocumentShare> DocumentShares { get; set; } = null!;
+    public DbSet<DocumentActivity> DocumentActivities { get; set; } = null!;
+    public DbSet<TaskDocument> TaskDocuments { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -207,6 +212,34 @@ public class ApplicationDbContext : DbContext
                 AssignedDate = DateTime.UtcNow.AddDays(-30)
             }
         );
+
+        // Configure document entities and indexes
+        modelBuilder.Entity<Document>(entity =>
+        {
+            entity.HasIndex(d => d.AssociatedProjectId);
+            entity.HasIndex(d => d.UploadDate);
+            entity.HasIndex(d => d.Category);
+            entity.HasOne(d => d.UploadedByUser)
+                .WithMany(u => u.UploadedDocuments)
+                .HasForeignKey(d => d.UploadedByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<DocumentTag>(entity =>
+        {
+            entity.HasIndex(dt => dt.Value);
+        });
+
+        modelBuilder.Entity<DocumentShare>(entity =>
+        {
+            entity.HasIndex(ds => ds.SharedWithUserId);
+        });
+
+        modelBuilder.Entity<TaskDocument>(entity =>
+        {
+            entity.HasIndex(td => td.TaskId);
+            entity.HasIndex(td => td.DocumentId);
+        });
 
         // Seed announcement
         modelBuilder.Entity<Announcement>().HasData(
