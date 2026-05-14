@@ -8,7 +8,7 @@
 
 - [x] T001 [P] Add upload storage configuration to `ContosoDashboard/appsettings.json` and `ContosoDashboard/appsettings.Development.json`
 - [x] T002 [P] Add new navigation entry for Documents in `ContosoDashboard/Shared/NavMenu.razor`
-- [ ] T003 [P] Create `ContosoDashboard/Pages/Documents.razor` as the entry page for document upload, search, and lists
+- [x] T003 [P] Create `ContosoDashboard/Pages/Documents.razor` as the entry page for document upload, search, and lists
 - [x] T004 [P] Add `ContosoDashboard/Services/IFileStorageService.cs` to define file storage operations
 - [x] T005 [P] Create `ContosoDashboard/Services/LocalFileStorageService.cs` to store uploaded files outside `wwwroot`
 
@@ -34,12 +34,12 @@
 **Independent Test**: Upload a PDF with title/category/project metadata, verify the file is stored under the configured upload folder, metadata persists in the database, and unauthorized project uploads are rejected.
 
 - [x] T012 [US1] Add upload metadata model support in `ContosoDashboard/Models/DocumentUploadModel.cs`
-- [ ] T013 [US1] Implement file size and MIME type validation in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T013 [US1] Implement file size and MIME type validation in `ContosoDashboard/Services/DocumentService.cs`
 - [x] T014 [US1] Implement document upload flow in `ContosoDashboard/Pages/Documents.razor`
 - [x] T015 [US1] Implement secure file save in `ContosoDashboard/Services/LocalFileStorageService.cs` using GUID-based stored filenames outside `wwwroot`
-- [ ] T016 [US1] Add project membership authorization checks in `ContosoDashboard/Services/DocumentService.cs` for uploads to associated projects
-- [ ] T017 [US1] Add audit logging for upload actions to `DocumentActivity` in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T018 [US1] Add user-facing error messages for "File exceeds maximum size of 25 MB" and unsupported file types in `ContosoDashboard/Pages/Documents.razor`
+- [x] T016 [US1] Add project membership authorization checks in `ContosoDashboard/Services/DocumentService.cs` for uploads to associated projects
+- [x] T017 [US1] Add audit logging for upload actions to `DocumentActivity` in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T018 [US1] Add user-facing error messages for "File exceeds maximum size of 25 MB" and unsupported file types in `ContosoDashboard/Pages/Documents.razor`
 
 ---
 
@@ -49,11 +49,11 @@
 
 **Independent Test**: Upload multiple documents, verify they appear in My Documents with correct metadata, search by title/tags/project, and filter by project.
 
-- [ ] T019 [US2] Implement My Documents query in `ContosoDashboard/Services/DocumentService.cs` filtered to the current user
+- [x] T019 [US2] Implement My Documents query in `ContosoDashboard/Services/DocumentService.cs` filtered to the current user
 - [ ] T020 [US2] Add search and filter UI controls in `ContosoDashboard/Pages/Documents.razor`
 - [ ] T021 [US2] Implement document search by title, description, tags, uploader name, and project in `ContosoDashboard/Services/DocumentService.cs`
 - [ ] T022 [US2] Add sort-by-upload-date and project filter support in `ContosoDashboard/Pages/Documents.razor`
-- [ ] T023 [US2] Add `No documents found` empty state messaging and suggested actions to `ContosoDashboard/Pages/Documents.razor`
+- [x] T023 [US2] Add `No documents found` empty state messaging and suggested actions to `ContosoDashboard/Pages/Documents.razor`
 - [ ] T024 [US2] Display project-specific documents in `ContosoDashboard/Pages/ProjectDetails.razor` for the current user's project membership
 
 ---
