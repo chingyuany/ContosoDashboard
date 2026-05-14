@@ -13,6 +13,10 @@
         "/^git init && git add \\. && git commit -m \"Initial commit: SDD Microsoft Contoso Dashboard - \\.NET Blazor project\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^git rev-parse --is-inside-work-tree 2>/dev/null$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
