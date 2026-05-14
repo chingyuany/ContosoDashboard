@@ -129,17 +129,40 @@ public class DocumentService : IDocumentService
 		return document;
 	}
 
-	public async Task<List<Document>> GetMyDocumentsAsync(ClaimsPrincipal user)
+	public async Task<List<Document>> GetMyDocumentsAsync(ClaimsPrincipal user, string? searchTerm = null, int? projectId = null, bool sortDescending = true)
 	{
 		var userId = GetCurrentUserId(user);
 		if (userId == null)
 			return new List<Document>();
 
-		return await _context.Documents
+		var documentsQuery = _context.Documents
 			.Include(d => d.AssociatedProject)
-			.Where(d => d.UploadedByUserId == userId.Value)
-			.OrderByDescending(d => d.UploadDate)
-			.ToListAsync();
+			.Include(d => d.UploadedByUser)
+			.Include(d => d.Tags)
+			.Where(d => d.UploadedByUserId == userId.Value);
+
+		if (projectId.HasValue && projectId.Value > 0)
+		{
+			documentsQuery = documentsQuery.Where(d => d.AssociatedProjectId == projectId.Value);
+		}
+
+		if (!string.IsNullOrWhiteSpace(searchTerm))
+		{
+			var searchPattern = $"%{searchTerm.Trim()}%";
+			documentsQuery = documentsQuery.Where(d =>
+				EF.Functions.Like(d.Title, searchPattern) ||
+				EF.Functions.Like(d.Description ?? string.Empty, searchPattern) ||
+				EF.Functions.Like(d.UploadedByUser.DisplayName, searchPattern) ||
+				(d.AssociatedProject != null && EF.Functions.Like(d.AssociatedProject.Name, searchPattern)) ||
+				d.Tags.Any(t => EF.Functions.Like(t.Value, searchPattern))
+			);
+		}
+
+		documentsQuery = sortDescending
+			? documentsQuery.OrderByDescending(d => d.UploadDate)
+			: documentsQuery.OrderBy(d => d.UploadDate);
+
+		return await documentsQuery.ToListAsync();
 	}
 
 	public async Task<List<Document>> GetProjectDocumentsAsync(int projectId, ClaimsPrincipal user)

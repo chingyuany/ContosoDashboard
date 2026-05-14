@@ -50,11 +50,11 @@
 **Independent Test**: Upload multiple documents, verify they appear in My Documents with correct metadata, search by title/tags/project, and filter by project.
 
 - [x] T019 [US2] Implement My Documents query in `ContosoDashboard/Services/DocumentService.cs` filtered to the current user
-- [ ] T020 [US2] Add search and filter UI controls in `ContosoDashboard/Pages/Documents.razor`
-- [ ] T021 [US2] Implement document search by title, description, tags, uploader name, and project in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T022 [US2] Add sort-by-upload-date and project filter support in `ContosoDashboard/Pages/Documents.razor`
+- [x] T020 [US2] Add search and filter UI controls in `ContosoDashboard/Pages/Documents.razor`
+- [x] T021 [US2] Implement document search by title, description, tags, uploader name, and project in `ContosoDashboard/Services/DocumentService.cs`
+- [x] T022 [US2] Add sort-by-upload-date and project filter support in `ContosoDashboard/Pages/Documents.razor`
 - [x] T023 [US2] Add `No documents found` empty state messaging and suggested actions to `ContosoDashboard/Pages/Documents.razor`
-- [ ] T024 [US2] Display project-specific documents in `ContosoDashboard/Pages/ProjectDetails.razor` for the current user's project membership
+- [x] T024 [US2] Display project-specific documents in `ContosoDashboard/Pages/ProjectDetails.razor` for the current user's project membership
 
 ---
 
