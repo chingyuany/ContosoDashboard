@@ -221,4 +221,3 @@ public class DocumentService : IDocumentService
 		return false;
 	}
 }
-EOF

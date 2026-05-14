@@ -7,7 +7,7 @@ namespace ContosoDashboard.Services;
 public class LocalFileStorageService : IFileStorageService
 {
 	private readonly string _storageRoot;
-	private static readonly Regex InvalidPathChars = new("[^a-zA-Z0-9_\-.]", RegexOptions.Compiled);
+	private static readonly Regex InvalidPathChars = new(@"[^a-zA-Z0-9_\-.]", RegexOptions.Compiled);
 
 	public LocalFileStorageService(IConfiguration configuration, IWebHostEnvironment environment)
 	{

@@ -6,11 +6,11 @@
 
 **Purpose**: Initialize the document management feature in the existing ContosoDashboard app.
 
-- [ ] T001 [P] Add upload storage configuration to `ContosoDashboard/appsettings.json` and `ContosoDashboard/appsettings.Development.json`
-- [ ] T002 [P] Add new navigation entry for Documents in `ContosoDashboard/Shared/NavMenu.razor`
+- [x] T001 [P] Add upload storage configuration to `ContosoDashboard/appsettings.json` and `ContosoDashboard/appsettings.Development.json`
+- [x] T002 [P] Add new navigation entry for Documents in `ContosoDashboard/Shared/NavMenu.razor`
 - [ ] T003 [P] Create `ContosoDashboard/Pages/Documents.razor` as the entry page for document upload, search, and lists
-- [ ] T004 [P] Add `ContosoDashboard/Services/IFileStorageService.cs` to define file storage operations
-- [ ] T005 [P] Create `ContosoDashboard/Services/LocalFileStorageService.cs` to store uploaded files outside `wwwroot`
+- [x] T004 [P] Add `ContosoDashboard/Services/IFileStorageService.cs` to define file storage operations
+- [x] T005 [P] Create `ContosoDashboard/Services/LocalFileStorageService.cs` to store uploaded files outside `wwwroot`
 
 ---
 
@@ -18,12 +18,12 @@
 
 **Purpose**: Implement core models, storage abstractions, and authorization infrastructure required by all document stories.
 
-- [ ] T006 Add document-related entity models in `ContosoDashboard/Models/Document.cs`, `ContosoDashboard/Models/DocumentTag.cs`, `ContosoDashboard/Models/DocumentShare.cs`, `ContosoDashboard/Models/DocumentActivity.cs`, and `ContosoDashboard/Models/TaskDocument.cs`
-- [ ] T007 Update `ContosoDashboard/Data/ApplicationDbContext.cs` to register new document entity DbSet properties and configure relationships
-- [ ] T008 Create `ContosoDashboard/Services/DocumentService.cs` to encapsulate upload, search, authorization, sharing, attachment, and audit logic
-- [ ] T009 Update `ContosoDashboard/Program.cs` to register `DocumentService`, `IFileStorageService`, and document authorization policies
+- [x] T006 Add document-related entity models in `ContosoDashboard/Models/Document.cs`, `ContosoDashboard/Models/DocumentTag.cs`, `ContosoDashboard/Models/DocumentShare.cs`, `ContosoDashboard/Models/DocumentActivity.cs`, and `ContosoDashboard/Models/TaskDocument.cs`
+- [x] T007 Update `ContosoDashboard/Data/ApplicationDbContext.cs` to register new document entity DbSet properties and configure relationships
+- [x] T008 Create `ContosoDashboard/Services/DocumentService.cs` to encapsulate upload, search, authorization, sharing, attachment, and audit logic
+- [x] T009 Update `ContosoDashboard/Program.cs` to register `DocumentService`, `IFileStorageService`, and document authorization policies
 - [ ] T010 Update notification registration in `ContosoDashboard/Services/NotificationService.cs` or `Program.cs` so document share actions can trigger in-app notifications
-- [ ] T011 Add `ContosoDashboard/Pages/DocumentDetails.razor` and supporting code to provide a reusable view for document preview, metadata editing, and sharing
+- [x] T011 Add `ContosoDashboard/Pages/DocumentDetails.razor` and supporting code to provide a reusable view for document preview, metadata editing, and sharing
 
 ---
 
@@ -33,10 +33,10 @@
 
 **Independent Test**: Upload a PDF with title/category/project metadata, verify the file is stored under the configured upload folder, metadata persists in the database, and unauthorized project uploads are rejected.
 
-- [ ] T012 [US1] Add upload metadata model support in `ContosoDashboard/Models/DocumentUploadModel.cs`
+- [x] T012 [US1] Add upload metadata model support in `ContosoDashboard/Models/DocumentUploadModel.cs`
 - [ ] T013 [US1] Implement file size and MIME type validation in `ContosoDashboard/Services/DocumentService.cs`
-- [ ] T014 [US1] Implement document upload flow in `ContosoDashboard/Pages/Documents.razor`
-- [ ] T015 [US1] Implement secure file save in `ContosoDashboard/Services/LocalFileStorageService.cs` using GUID-based stored filenames outside `wwwroot`
+- [x] T014 [US1] Implement document upload flow in `ContosoDashboard/Pages/Documents.razor`
+- [x] T015 [US1] Implement secure file save in `ContosoDashboard/Services/LocalFileStorageService.cs` using GUID-based stored filenames outside `wwwroot`
 - [ ] T016 [US1] Add project membership authorization checks in `ContosoDashboard/Services/DocumentService.cs` for uploads to associated projects
 - [ ] T017 [US1] Add audit logging for upload actions to `DocumentActivity` in `ContosoDashboard/Services/DocumentService.cs`
 - [ ] T018 [US1] Add user-facing error messages for "File exceeds maximum size of 25 MB" and unsupported file types in `ContosoDashboard/Pages/Documents.razor`
